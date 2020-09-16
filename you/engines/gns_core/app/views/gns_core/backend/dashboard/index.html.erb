@@ -1,0 +1,14 @@
+<% content_for :title do %>
+    <%= t('.dashboard') %>
+<% end %>
+
+<% content_for :breadcrumb do %>
+    <a href="<%= gns_core.root_path %>" class="breadcrumb-item"><i class="icon-home4 mr-2"></i> <%= t('.home') %> - <%= t('.dashboard') %></a>
+<% end %>
+
+<!-- Dashboard content -->
+<div class="row">
+    <div class="col-xl-8">
+        Hello!
+    </div>
+</div>

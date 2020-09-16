@@ -1,0 +1,140 @@
+
+  
+<% content_for :title do %>
+    Banner
+<% end %>
+
+<% content_for :breadcrumb do %>
+    <a href="<%= gns_core.root_path %>" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> Home</a>
+    <span class="breadcrumb-item active">Banners</span>
+<% end %>
+
+<% content_for :page_title do %>
+    <h4><i class="icon-cog mr-2"></i> <span class="font-weight-semibold">Banner</span></h4>
+<% end %>
+
+<% content_for :page_toolbar do %>
+    <%
+=begin%>
+ <% if can? :create, GnsBanners::Backend::Banner %>
+        <a class="btn btn-primary add-banner-button" href="<%= gns_core.new_backend_user_path %>">
+            <b><i class="icon-plus22"></i></b> Create New Banner
+        </a>
+    <% end %> 
+<%
+=end%>
+  
+  <a class="btn btn-primary add-banner-button" href="<%= gns_banners.new_backend_banner_path %>">
+    <b><i class="icon-plus22"></i></b> Create New Banner
+  </a>
+<% end %>
+
+<% content_for :page_script do %>
+    <script>
+        var banner_modal = new gModal({size: 'md'});
+        var updateBannerCallback;
+        var newBannerCallback;
+        
+        $(function() {            
+            $('.add-banner-button').click(function(e) {
+                e.preventDefault();
+                var button = $(this);
+                
+                banner_modal.load(button.attr('href'));
+                
+                newBannerCallback = function(response) {
+                    if (typeof(response.status) !== 'undefined') {
+                        showNotification(response.status, response.message);
+                        // hide modal
+                        banner_modal.hide();
+                        
+                        datalists[$('.datalist-banners').attr('data-id')].refresh();          
+                    } else if (typeof(response.redirect) !== 'undefined') {
+                        window.location = response.redirect;
+                    } else {
+                        // validation error
+                        banner_modal.renderHtml(response);
+                    }
+                };
+            });
+            
+            $(document).on('click', '.edit-banner-button', function(e) {
+                e.preventDefault();
+                
+                var button = $(this);
+                
+                // load modal edit category
+                banner_modal.load(button.attr('href'));
+                
+                // after update user event
+                updateBannerCallback = function(response) {
+                    if (typeof(response.status) !== 'undefined') {
+                        showNotification(response.status, response.message);
+                        // hide modal
+                        banner_modal.hide();
+                        
+                        datalists[button.closest('.datalist').attr('data-id')].refresh();
+                    } else if (typeof(response.redirect) !== 'undefined') {
+                        window.location = response.redirect;
+                    } else {
+                        // validation error
+                        banner_modal.renderHtml(response);
+                    }           
+                };
+                    
+            });
+        });
+    </script>
+<% end %>
+
+
+<table class="table table-hover">
+    <thead>
+        <tr class="bg-info-700">
+            <th class="text-nowrap">Title</th>
+            <th class="text-nowrap">Image URL</th>
+            <th class="text-nowrap">Link Target</th>
+            <th class="text-nowrap">Status</th>
+            <th class="text-nowrap">Created At</th>
+            <th class="text-nowrap text-right">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @banners.each do |banner| %>
+            <tr>
+                <td>
+                    <%= banner.title %>
+                </td>
+                <td><%= banner.img_url %></td>
+                <td><%= banner.link_target %></td>
+                <td>
+                    <span class="badge badge-active">Active</span>
+                </td>
+                <td>
+                    <%= banner.created_at.strftime("%d/%m/%Y") %>
+                </td>
+                <td class="text-right">
+                    <div class="list-icons">
+                      <div class="dropdown">
+                        <a href="#" class="list-icons-item" data-toggle="dropdown">
+                            <i class="icon-menu9"></i>
+                        </a>
+                        
+                        <div class="dropdown-menu dropdown-menu-right">
+                          <a class="dropdown-item edit-banner-button"
+                              href="<%= gns_banners.edit_backend_banner_path(banner) %>">
+                              <i class="icon-pencil7"></i> Update
+                          </a>
+
+                          <div class="row" style="margin-left:14px">
+                            <i class="icon-bin" style="margin-top:5px;margin-right:15px"></i><%= button_to "Delete", backend_banner_path(banner), method: :delete, data: { confirm: 'Are you sure?' } %>
+                          </div>
+                          
+                        </div>
+                      </div>
+                    </div>
+                </td>
+            </tr>
+        <% end %>
+    </tbody>
+</table>

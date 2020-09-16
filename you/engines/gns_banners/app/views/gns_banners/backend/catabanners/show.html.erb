@@ -1,0 +1,32 @@
+
+<p id="notice"><%= notice %></p>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="2">Title</th>
+      <th colspan="2">Image URL</th>
+      <th colspan="2">Link target</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+        <td colspan="2"><%= @catabanner.name %></td>
+        <td colspan="2"><%= @catabanner.width %></td>
+        <td colspan="2"><%= @catabanner.height %></td>
+    </tr>
+
+  </tbody>
+</table>
+<br>
+
+<div class="row">
+  <div class="col-sm-1">
+    <%= link_to 'Edit', edit_backend_catabanner_path(@catabanner) %>
+  </div>
+
+  <div class="col-sm-1"> 
+    <%= link_to 'Back', backend_catabanners_path %>
+  </div>
+</div>

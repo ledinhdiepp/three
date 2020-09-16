@@ -1,0 +1,48 @@
+<%= form_for([gns_banners, banner], html: {multipart: true}) do |f| %>
+    <fieldset>
+        <div class="form-group">
+            <label class="d-block font-weight-semibold"> Title <span class="text-danger">*</span></label>
+            <input type="text" class="form-control <%= 'border-danger' if banner.errors.full_messages_for(:title).present? %>" placeholder="Enter title"
+                name="banner[title]"
+                value="<%= banner.title %>"
+            >
+            <% if banner.errors.full_messages_for(:title).present? %>
+                <span class="form-text text-danger"><%= banner.errors.full_messages_for(:title).join('<br/>').html_safe %></span>
+            <% end %>
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <div class="form-group">
+            <label class="d-block font-weight-semibold"> Image url <span class="text-danger">*</span></label>
+            <input type="text" class="form-control <%= 'border-danger' if banner.errors.full_messages_for(:img_url).present? %>" placeholder="Enter image url"
+                name="banner[img_url]"
+                value="<%= banner.img_url %>"
+            >
+            <% if banner.errors.full_messages_for(:img_url).present? %>
+                <span class="form-text text-danger"><%= banner.errors.full_messages_for(:img_url).join('<br/>').html_safe %></span>
+            <% end %>
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <div class="form-group">
+            <label class="d-block font-weight-semibold"> Link target <span class="text-danger">*</span></label>
+            <input type="text" class="form-control <%= 'border-danger' if banner.errors.full_messages_for(:link_target).present? %>" placeholder="Enter link target"
+                name="banner[link_target]"
+                value="<%= banner.link_target %>"
+            >
+            <% if banner.errors.full_messages_for(:link_target).present? %>
+                <span class="form-text text-danger"><%= banner.errors.full_messages_for(:link_target).join('<br/>').html_safe %></span>
+            <% end %>
+        </div>
+    </fieldset>
+    
+    <hr class="mt-0">
+    <div class="text-left">
+        <button type="submit" class="btn btn-primary"> Save </button>
+        <a class="btn btn-light ml-1" href="<%= gns_banners.backend_banners_path %>">
+          Cancle
+        </a>
+    </div>
+<% end %>

@@ -1,0 +1,13 @@
+# database
+database_username: ''
+database_password: ''
+dev_database_name: ''
+test_database_name: ''
+prod_database_name: ''
+
+# google account
+gmail_username: ''
+gmail_password: ''
+
+web_root: http://localhost:3000
+USER_GUIDE_URL: ''

@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="2">Title</th>
+      <th colspan="2">Image URL</th>
+      <th colspan="2">Link target</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+        <td colspan="2"><%= @banner.title %></td>
+        <td colspan="2"><%= @banner.img_url %></td>
+        <td colspan="2"><%= @banner.link_target %></td>
+    </tr>
+
+  </tbody>
+</table>
+<br>
+
+<div class="row">
+  <div class="col-sm-1">
+    <%= link_to 'Edit', edit_backend_banner_path(@banner) %>
+  </div>
+
+  <div class="col-sm-1"> 
+    <%= link_to 'Back', backend_banners_path %>
+  </div>
+</div>

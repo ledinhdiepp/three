@@ -1,0 +1,79 @@
+<%= form_for([gns_banners, catabanner], html: {multipart: true}) do |f| %>
+    <fieldset>
+        <div class="form-group">
+            <label class="d-block font-weight-semibold"> Name <span class="text-danger">*</span></label>
+            <input type="text" class="form-control <%= 'border-danger' if catabanner.errors.full_messages_for(:name).present? %>" placeholder="Enter name"
+                name="catabanner[name]"
+                value="<%= catabanner.name %>"
+            >
+            <% if catabanner.errors.full_messages_for(:name).present? %>
+                <span class="form-text text-danger"><%= catabanner.errors.full_messages_for(:name).join('<br/>').html_safe %></span>
+            <% end %>
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <div class="form-group">
+            <label class="d-block font-weight-semibold"> Width<span class="text-danger">*</span></label>
+            <input type="text" class="form-control <%= 'border-danger' if catabanner.errors.full_messages_for(:width).present? %>" placeholder="Enter width"
+                name="catabanner[width]"
+                value="<%= catabanner.width %>"
+            >
+            <% if catabanner.errors.full_messages_for(:width).present? %>
+                <span class="form-text text-danger"><%= banner.errors.full_messages_for(:width).join('<br/>').html_safe %></span>
+            <% end %>
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <div class="form-group">
+            <label class="d-block font-weight-semibold"> Height <span class="text-danger">*</span></label>
+            <input type="text" class="form-control <%= 'border-danger' if catabanner.errors.full_messages_for(:height).present? %>" placeholder="Enter height"
+                name="catabanner[height]"
+                value="<%= catabanner.height %>"
+            >
+            <% if catabanner.errors.full_messages_for(:height).present? %>
+                <span class="form-text text-danger"><%= catabanner.errors.full_messages_for(:height).join('<br/>').html_safe %></span>
+            <% end %>
+        </div>
+    </fieldset>
+
+    <fieldset>
+    <div class="form-group">
+        <label class="d-block font-weight-semibold"> Position <span class="text-danger">*</span></label>
+        <input type="text" class="form-control <%= 'border-danger' if catabanner.errors.full_messages_for(:position).present? %>" placeholder="Enter position"
+            name="catabanner[position]"
+            value="<%= catabanner.position %>"
+        >
+        <% if catabanner.errors.full_messages_for(:posiotion).present? %>
+            <span class="form-text text-danger"><%= catabanner.errors.full_messages_for(:position).join('<br/>').html_safe %></span>
+        <% end %>
+    </div>
+
+   
+</fieldset>
+
+<fieldset>
+<div class="form-group">
+<label class="d-block font-weight-semibold"> Thumb_size <span class="text-danger">*</span></label>
+    <div class="show-per-page flex align-center">
+            <select name="catabanner[thumb_resize]" class="form-control selectPrimary per-page-select <%= 'border-danger' if catabanner.errors.full_messages_for(:thumb_resize).present? %> ">
+                <option value="Fit">Fit</option>
+                <option value="Fill">Fill</option>
+                <option value="Limit">Limit</option>
+                <option value="Pad">Pad</option>
+            </select>
+    </div>
+    
+   
+</div>
+</fieldset>
+    <hr class="mt-0">
+    <div class="text-left">
+        <button type="submit" class="btn btn-primary"> Save </button>
+        <a class="btn btn-light ml-1" href="<%= gns_banners.backend_catabanners_path %>">
+          Cancle
+        </a>
+    </div>
+<% end %>
+
